@@ -1,142 +1,75 @@
 /*
-    TODO: Determinar si los elementos de cada arreglo unidimensional ingresado presentan una disposición ordenada de valores (ascendente o descendentemente)
+    TODO: Leer 10 enteros y mostrar la media de los valores negativos y la de los positivos.
 */
-
 #include <iostream>
 using namespace std;
 
-// Prototipos
-void leerV(int a[], int n);
-void imprimirV(int a[], int n);
-bool arrayIgual(int a[], int n);
-bool ordenDesc(int a[], int n);
-bool ordenAsc(int a[], int n);
-
-int main()
+int main(void)
 {
-    int n = 0, l = 0;
-    bool igual = false, asc = false, desc = false;
-    cout << "Ingrese cantidad de vectores: ";
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        // Lectura cantidad de elementos
-        cout << "Ingrese la cantidad de elementos a ingresar en vector " << i + 1 << ": ";
-        cin >> l;
-        int a[l];
-        leerV(a, l);              // Lectura elementos de vector
-        imprimirV(a, l);          // Imprimir vector
-        igual = arrayIgual(a, l); // Elementos iguales
-        if (igual == false)
-        {
-            asc = ordenAsc(a, l);   // ascendente
-            desc = ordenDesc(a, l); // descendente
-            if (asc == false && desc == false)
-            {
-                cout << "Los elementos no tiene un orden especifico" << endl;
-            }
-        }
-        cout << endl;
-    }
-    return 0;
+    void readv(int a[]);
+    void cont(int a[], int &po, int &ne);
+    void med(int a[], int po, int ne);
+
+    int p = 0, n = 0;
+    int v[9];
+
+    readv(v);
+    cont(v, p, n);
+    med(v, p, n);
+    cout << endl;
+
+    system("pause");
 }
-
-void leerV(int a[], int n) // leer vector(array, nelementos)
+void readv(int a[9])
 {
-    for (int i = 0; i < n; i++)
+    int i;
+    for (i = 0; i <= 9; i++)
     {
-        cout << "Ingrese el elemento " << i + 1 << ": ";
+        cout << "Ingrese el #" << i + 1 << " numero: ";
         cin >> a[i];
     }
 }
-void imprimirV(int a[], int n) // imprimir vector(array, nelementos)
-{
-    cout << "Vector: [";
-    for (int i = 0; i < n; i++)
-    {
-        cout << a[i];
-        if (i < n - 1)
-        {
-            cout << ",";
-        }
-    }
-    cout << "]" << endl;
-}
-bool arrayIgual(int a[], int n)
-{
-    bool flag = false;
-    int aux = a[0];
-    for (int i = 0; i < n; i++)
-    {
-        if (i < n - 1)
-        {
-            if (aux == a[i + 1])
-            {
-                flag = true;
-                aux = a[i + 1];
-            }
-            else
-            {
-                flag = false;
-                break;
-            }
-        }
-    }
-    if (flag)
-    {
-        cout << "Los elementos de los vectores son iguales" << endl;
-    }
-    return flag;
-}
-bool ordenDesc(int a[], int n)
-{
-    bool flag = false;
-    int aux = a[0];
-    for (int i = 0; i < n; i++)
-    {
-        if (i < n - 1)
-        {
-            if (aux > a[i + 1])
-            {
-                flag = true;
-                aux = a[i + 1];
-            }
-            else
-            {
-                flag = false;
-                break;
-            }
-        }
-    }
-    if (flag)
-    {
-        cout << "Vector descendente" << endl;
-    }
-    return flag;
-}
-bool ordenAsc(int a[], int n)
-{
-    bool flag = false;
 
-    for (int i = 0; i < n; i++)
+void cont(int a[], int &po, int &ne)
+{
+    po = 0, ne = 0;
+    for (int i = 0; i <= 9; i++)
     {
-        if (i < n - 1)
+        if (a[i] > 0)
         {
-
-            if (a[i] < a[i + 1])
-            {
-                flag = true;
-            }
-            else
-            {
-                flag = false;
-                break;
-            }
+            po++;
+        }
+        else if (a[i] < 0)
+        {
+            ne++;
         }
     }
-    if (flag)
+}
+
+void med(int a[], int po, int ne)
+{
+    float acum = 0, acum1 = 0;
+    float m = 0, m1 = 0;
+    float v[9];
+    for (int i = 0; i < 10; i++)
     {
-        cout << "Vector ascendente" << endl;
+        v[i] = a[i];
     }
-    return flag;
+    for (int i = 0; i <= 9; i++)
+    {
+        if (v[i] > 0)
+        {
+            acum += v[i];
+        }
+        else if (v[i] < 0)
+        {
+            acum1 += v[i];
+        }
+    }
+    m = acum / po;
+    m1 = acum1 / ne;
+    cout << endl
+         << "La media de los numeros positivos es: " << m;
+    cout << endl
+         << "La media de los numeros negativos es: " << m1;
 }

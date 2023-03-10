@@ -1,141 +1,74 @@
 /*
-    TODO: Ingresar un vector y formar, a partir de este, un arreglo de valores primos y otro de valores compuestos.
+    TODO: Leer N alturas y calcular la altura media. Calcular cuántas hay superiores a la media y cuántas inferiores.
 */
-
 #include <iostream>
-#include <cmath>
 using namespace std;
 
-// Prototipos
-void leerV(int a[], int n);
-void imprimirV(int a[], int n);
-void asignarVectorPrimo(int a[], int b[], int n, int npri);
-void asignarVectorComp(int a[], int b[], int n, int ncomp);
-void calcNums(int a[], int n);
-
-int main()
+int main(void)
 {
-    int l = 0;
-    // Lectura cantidad de elementos
-    cout << "Ingrese la cantidad de elementos a ingresar: ";
-    cin >> l;
-    int a[l];
-    // Lectura elementos de vector
-    leerV(a, l);
-    // Imprimir vector
-    imprimirV(a, l);
-    // Buscar primo
-    calcNums(a, l);
-    return 0;
+    void readh(float a[], int n);
+    float media(float a[], int n);
+    void hMay(float a[], int n, float md);
+    void hMen(float a[], int n, float md);
+
+    int n;
+    float v[100];
+    float m;
+    cout << "Ingrese la cantidad de alturas a ingresar: ";
+    cin >> n;
+
+    readh(v, n);
+    m = media(v, n);
+    hMay(v, n, m);
+    hMen(v, n, m);
+
+    cout << endl;
+
+    system("pause");
 }
-
-void leerV(int a[], int n) // leer vector(array, nelementos)
+void readh(float a[], int n)
 {
-    for (int i = 0; i < n; i++)
+    int i;
+    float acum = 0;
+    for (i = 0; i < n; i++)
     {
-        cout << "Ingrese el elemento " << i + 1 << ": ";
+        cout << "Ingrese la altura #" << i + 1 << ": ";
         cin >> a[i];
     }
 }
-void imprimirV(int a[], int n) // imprimir vector(array, nelementos)
+float media(float a[], int n)
 {
-    cout << "Vector: [";
+    float acum = 0, med;
     for (int i = 0; i < n; i++)
     {
-        cout << a[i];
-        if (i < n - 1)
-        {
-            cout << ",";
-        }
+        acum += a[i];
     }
-    cout << "]" << endl;
+    med = acum / n;
+    cout << endl
+         << "La media de las alturas ingresadas es: " << med << endl;
+    return med;
 }
-void asignarVectorPrimo(int a[], int b[], int n, int npri) // array, nelementos, cantidadprimos
+void hMay(float a[], int n, float md)
 {
-    int cont = 0, posicion = 0;
+    cout << endl
+         << "ALTURAS MAYOR A LA MEDIA:" << endl;
     for (int i = 0; i < n; i++)
     {
-        for (int j = 1; j <= a[i]; j++)
+        if (a[i] > md)
         {
-            if (a[i] % j == 0)
-            {
-                cont++;
-            }
-        }
-
-        if (cont <= 2)
-        {
-            b[posicion] = a[i];
-            posicion++;
-        }
-        cont = 0;
-    }
-    cout << "Vector de Primos: [";
-    for (int k = 0; k < npri; k++)
-    {
-        cout << b[k];
-        if (k < npri - 1)
-        {
-            cout << ",";
+            cout << "Altura #" << i + 1 << ": " << a[i] << endl;
         }
     }
-    cout << "]" << endl;
 }
-void asignarVectorComp(int a[], int b[], int n, int ncomp) // array, nelementos, cantidadcompuestos
+void hMen(float a[], int n, float md)
 {
-    int cont = 0, posicion = 0;
+    cout << endl
+         << "ALTURAS MENOR A LA MEDIA:" << endl;
     for (int i = 0; i < n; i++)
     {
-        for (int j = 1; j <= a[i]; j++)
+        if (a[i] < md)
         {
-            if (a[i] % j == 0)
-            {
-                cont++;
-            }
-        }
-
-        if (cont > 2)
-        {
-            b[posicion] = a[i];
-            posicion++;
-        }
-        cont = 0;
-    }
-    cout << "Vector de Compuestos: [";
-    for (int k = 0; k < ncomp; k++)
-    {
-        cout << b[k];
-        if (k < ncomp - 1)
-        {
-            cout << ",";
+            cout << "Alltura #" << i + 1 << ": " << a[i] << endl;
         }
     }
-    cout << "]" << endl;
-}
-void calcNums(int a[], int n) // calcular cantidad de primos y compuestos (array, nelementos)
-{
-    int cont = 0, contp = 0, contc = 0;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 1; j <= a[i]; j++)
-        {
-            if (a[i] % j == 0)
-            {
-                cont++;
-            }
-        }
-        if (cont > 2)
-        {
-            contc++; // compuesto
-        }
-        else
-        {
-            contp++; // primo
-        }
-        cont = 0;
-    }
-    int vectorPrimos[contp];
-    asignarVectorPrimo(a, vectorPrimos, n, contp);
-    int vectorComp[contc];
-    asignarVectorComp(a, vectorComp, n, contc);
 }
