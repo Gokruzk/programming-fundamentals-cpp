@@ -1,5 +1,5 @@
 /*
-    TODO: Ingresar un arreglo unidimensional de valores, y eliminar de este todos aquellos valores que se encuentren repetidos
+    TODO: Determinar si los elementos de cada arreglo unidimensional ingresado presentan una disposición ordenada de valores (ascendente o descendentemente)
 */
 
 #include <iostream>
@@ -8,20 +8,36 @@ using namespace std;
 // Prototipos
 void leerV(int a[], int n);
 void imprimirV(int a[], int n);
-void elementosRepetidos(int a[], int n, int *pos, int *cont);
-void eleminarRepetido(int a[], int *n, int x, int cant);
+bool arrayIgual(int a[], int n);
+bool ordenDesc(int a[], int n);
+bool ordenAsc(int a[], int n);
 
 int main()
 {
-    int l = 0, pos = 0, cont = 0;
-    cout << "Ingrese la cantidad de elementos a ingresar en vector: ";
-    cin >> l;
-    int a[l];
-    leerV(a, l);                            // Lectura elementos de vector
-    imprimirV(a, l);                        // Imprimir vector
-    elementosRepetidos(a, l, &pos, &cont); // Elemento repetido
-    eleminarRepetido(a, &l, pos, cont);
-    imprimirV(a, l);
+    int n = 0, l = 0;
+    bool igual = false, asc = false, desc = false;
+    cout << "Ingrese cantidad de vectores: ";
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        // Lectura cantidad de elementos
+        cout << "Ingrese la cantidad de elementos a ingresar en vector " << i + 1 << ": ";
+        cin >> l;
+        int a[l];
+        leerV(a, l);              // Lectura elementos de vector
+        imprimirV(a, l);          // Imprimir vector
+        igual = arrayIgual(a, l); // Elementos iguales
+        if (igual == false)
+        {
+            asc = ordenAsc(a, l);   // ascendente
+            desc = ordenDesc(a, l); // descendente
+            if (asc == false && desc == false)
+            {
+                cout << "Los elementos no tiene un orden especifico" << endl;
+            }
+        }
+        cout << endl;
+    }
     return 0;
 }
 
@@ -38,44 +54,89 @@ void imprimirV(int a[], int n) // imprimir vector(array, nelementos)
     cout << "Vector: [";
     for (int i = 0; i < n; i++)
     {
-        if (a[i] != 0)
+        cout << a[i];
+        if (i < n - 1)
         {
-            cout << a[i] << " ";
+            cout << ",";
         }
     }
     cout << "]" << endl;
 }
-void elementosRepetidos(int a[], int n, int *pos, int *cont) // buscar elementos repetidos
+bool arrayIgual(int a[], int n)
 {
-    int aux,cant=0;
+    bool flag = false;
+    int aux = a[0];
     for (int i = 0; i < n; i++)
     {
-        aux = a[i]; // elemento anclado
-        for (int j = 0; j < n; j++)
+        if (i < n - 1)
         {
-            if (aux == a[j]) // comproband elemento anclado con todos los elementos
+            if (aux == a[i + 1])
             {
-                cant++;
+                flag = true;
+                aux = a[i + 1];
+            }
+            else
+            {
+                flag = false;
+                break;
             }
         }
-        if (cant > 1)
-        {
-            *pos = i;
-            *cont = cant;
-            break;
-        }
     }
-}
-void eleminarRepetido(int a[], int *n, int x, int cant)
-{
-    int j = 0;
-    while (j < cant - 1) // repite nveces se encuentre repetido un elemento
+    if (flag)
     {
-        for (int i = x; i < *n; i++) // inicio: elemento repetido
-        {
-            a[i] = a[i + 1]; // asigna la siguiente posicion a la posicion del elemento repetido
-        }
-        *n -= 1;
-        j++;
+        cout << "Los elementos de los vectores son iguales" << endl;
     }
+    return flag;
+}
+bool ordenDesc(int a[], int n)
+{
+    bool flag = false;
+    int aux = a[0];
+    for (int i = 0; i < n; i++)
+    {
+        if (i < n - 1)
+        {
+            if (aux > a[i + 1])
+            {
+                flag = true;
+                aux = a[i + 1];
+            }
+            else
+            {
+                flag = false;
+                break;
+            }
+        }
+    }
+    if (flag)
+    {
+        cout << "Vector descendente" << endl;
+    }
+    return flag;
+}
+bool ordenAsc(int a[], int n)
+{
+    bool flag = false;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (i < n - 1)
+        {
+
+            if (a[i] < a[i + 1])
+            {
+                flag = true;
+            }
+            else
+            {
+                flag = false;
+                break;
+            }
+        }
+    }
+    if (flag)
+    {
+        cout << "Vector ascendente" << endl;
+    }
+    return flag;
 }

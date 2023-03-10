@@ -1,144 +1,39 @@
 /*
-    TODO: Ingresar un arreglo unidimensional y determinar aquellos intervalos de elementos (posición inicial y final) en los que los valores se encuentren ordenados.
+    TODO: Teniendo los números 50, 25, 20, 10, 5, 3, 2, 1, encuéntrese la secuencia de tres números distintos talque la sumatoria del doble de cada uno sea igual a 96
 */
 
 #include <iostream>
 using namespace std;
 
 // Prototipos
-void leerV(int a[], int n);
-void imprimirV(int a[], int n);
-void intervalos(int a[], int n);
+void solucion(int a[], int n);
 
 int main()
 {
-    int l;
-    cout << "Ingrese la cantidad de elementos a ingresar en vector: ";
-    cin >> l;
-    int a[l];
-    leerV(a, l);      // Lectura elementos de vector
-    imprimirV(a, l);  // Imprimir vector
-    intervalos(a, l); // Determinar orden
+    int a[] = {50, 25, 20, 10, 5, 3, 2, 1};
+    solucion(a, 7);
+
     return 0;
 }
-
-void leerV(int a[], int n) // leer vector(array, nelementos)
+void solucion(int a[], int n)
 {
+    int aux, aux2, aux3, sum;
     for (int i = 0; i < n; i++)
     {
-        cout << "Ingrese el elemento " << i + 1 << ": ";
-        cin >> a[i];
-    }
-}
-void imprimirV(int a[], int n) // imprimir vector(array, nelementos)
-{
-    cout << "Vector: [";
-    for (int i = 0; i < n; i++)
-    {
-        cout << a[i];
-        if (i < n - 1)
+        aux = 2 * a[i]; // elemento1 anclado
+        for (int j = i + 1; j < n; j++)
         {
-            cout << ",";
-        }
-    }
-    cout << "]" << endl;
-}
-bool ordenDesc(int a[], int n, int pi, int pf)
-{
-    bool flag = false;
-    int aux = a[0];
-    for (int i = pi; i < pf; i++)
-    {
-        if (i < pf - 1)
-        {
-            if (aux > a[i + 1])
+            aux2 = 2 * a[j]; // elemento2 anclado
+            for (int k = j + 1; k < n; k++)
             {
-                flag = true;
-                aux = a[i + 1];
-            }
-            else
-            {
-                flag = false;
-                break;
-            }
-        }
-    }
-    return flag;
-}
-bool ordenAsc(int a[], int n, int pi, int pf)
-{
-    bool flag = false;
-    for (int i = pi; i < pf; i++)
-    {
-        if (a[i] < a[i + 1])
-        {
-            flag = true;
-        }
-        else
-        {
-            flag = false;
-            break;
-        }
-    }
-    return flag;
-}
-bool arrayIgual(int a[], int n, int pi, int pf)
-{
-    bool flag = false;
-    int aux = a[0];
-    for (int i = pi; i < pf; i++)
-    {
-        if (i < pf - 1)
-        {
-            if (aux == a[i + 1])
-            {
-                flag = true;
-                aux = a[i + 1];
-            }
-            else
-            {
-                flag = false;
-                break;
-            }
-        }
-    }
-    return flag;
-}
-void intervalos(int a[], int n)
-{
-    int ini, fin, cont, aux;
-    bool igual = false, asc = false, desc = false;
-    for (int i = 0; i < n; i++)
-    {
-        if (i < n - 1)
-        {
-            for (int j = 0; j < n - i; j++)
-            {
-                igual = arrayIgual(a, n, i, j + 1);
-                if (igual == false)
+                aux3 = 2 * a[k];         // elemento3 anclado
+                sum = aux + aux2 + aux3; // suma
+                if (sum == 96)           // comprobacion
                 {
-                    asc = ordenAsc(a, n, i, j + 1);   // ascendente
-                    desc = ordenDesc(a, n, i, j + 1); // descendente
-                    if (asc == true)
-                    {
-                        cout << "Intervalo ascendente: [" << i << ", " << j + 1 << "]" << endl;
-                        break;
-                    }
-                    else
-                    {
-
-                        if (desc == true)
-                        {
-                            cout << "Intervalo descendente: [" << i << ", " << j + 1 << "]" << endl;
-                            break;
-                        }
-                    }
+                    cout << "Secuencia de numeros: [" << aux / 2 << " " << aux2 / 2 << " " << aux3 / 2 << "]" << endl;
+                    cout << "Suma: " << sum << endl;
                 }
             }
         }
-    }
-    if (igual)
-    {
-        cout << "Los elementos del vector son iguales" << endl;
     }
 }

@@ -1,73 +1,80 @@
-/*
-    TODO: Calcular la suma de dos vectores ingresados (considérense vectores de distintas dimensiones)
-*/
-
+// TODO: Leer, imprimir, sumar elementos de un array
 #include <iostream>
+#define EXT 5 // valor constante
 using namespace std;
 
-// Prototipos
+// PROTOTIPOS
+int leerN(int max);
 void leerV(int a[], int n);
-void sumaVectores(int amay[], int bmen[], int c[], int nmay, int nmen);
-void vectorResultante(int a[], int n);
+void printV(int a[], int n);
+void printAlrevez(int a[], int n);
+void calSumVec(int a[], int &acum, int n);
 
 int main()
 {
-    int n1, n2, may;
-    cout << "Ingrese cantidad de elementos de vector 1: ";
-    cin >> n1;
-    int a[n1];
-    leerV(a, n1);
-    cout << "Ingrese cantidad de elementos de vector 2: ";
-    cin >> n2;
-    int b[n2];
-    leerV(b, n2);
-    if (n1 > n2) // comprobando vector mayor
-    {
-        int c[n1];
-        sumaVectores(a, b, c, n1, n2);
-        vectorResultante(c, n1);
-    }
-    else
-    {
-        int c[n2];
-        sumaVectores(b, a, c, n2, n1);
-        vectorResultante(c, n2);
-    }
-    return 0;
+	int v[EXT],			   // definir vector
+		acum = 0,		   // acumulador sumar
+		n;				   // cantidad
+	n = leerN(EXT);		   // leer cantidad efectiva de valores a procesar
+	leerV(v, n);		   // leer vector
+	printV(v, n);		   // imprimir vector
+	printAlrevez(v, n);	   // imprimir alrevez
+	calSumVec(v, acum, n); // suma elementos vector
+
+	cout << "Suma de elementos: " << acum << endl;
+	system("pause");
+}
+// DEFINICION DE FUNCIONES
+int leerN(int max)
+{
+	int aux;
+
+	do
+	{
+		cout << endl
+			 << "Ingrese cantidad de valores a procesar [1 .. " << max << "]: ";
+		cin >> aux;
+		if (aux > max)
+		{
+			cout << "La cantidad es mayor que " << max << endl;
+		}
+		else if (aux < 1)
+			cout << "La cantidad es menor que 1" << endl;
+	} while (aux < 1 || aux > max);
+	cout << endl;
+	return aux;
 }
 
-void leerV(int a[], int n) // leer vector(array, nelementos)
+void leerV(int a[], int n)
 {
-    for (int i = 0; i < n; i++)
-    {
-        cout << "Ingrese el elemento " << i + 1 << ": ";
-        cin >> a[i];
-    }
+	for (int i = 0; i < n; i++)
+	{
+		cout << "Ingrese un valor entero para la posicion [" << i << "]:" << endl;
+		cin >> a[i];
+	}
+	cout << endl;
 }
-void sumaVectores(int amay[], int bmen[], int c[], int nmay, int nmen)
+void printV(int a[], int n)
 {
-    for (int i = 0; i < nmay; i++)
-    {
-        if (i < nmen)
-        {
-            c[i] = amay[i] + bmen[i]; // asginar la suma de elementos en posiciones iguales
-        }
-        else
-        {
-            c[i] = amay[i]; // asignar directamente al llegar a la posicion mayor
-        }
-    }
+	for (int i = 0; i < n; i++)
+	{
+		cout << "Posicion [" << i << "]: " << a[i] << endl;
+	}
+	cout << endl;
 }
-void vectorResultante(int a[], int n) // imprimir vector resultante
+void printAlrevez(int a[], int n)
 {
-    cout << "Vector resultante: [";
-    for (int i = 0; i < n; i++)
-    {
-        cout << a[i];
-        if (i < n - 1)
-        {
-            cout << ",";
-        }
-    }
-    cout << "]" << endl;
+	for (int i = n - 1; i >= 0; i--)
+	{
+		cout << "Posicion [" << i << "]: " << a[i] << endl;
+	}
+	cout << endl;
+}
+void calSumVec(int a[], int &acum, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		acum += a[i];
+	}
+	cout << endl;
 }

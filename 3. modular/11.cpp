@@ -1,67 +1,62 @@
-/*
-    TODO: Determinar aquellos elementos que no se encuentran repetidos entre los valores de un vector ingresado por el usuario, así como las ubicaciones en que se encuentra cada uno
-*/
-
 #include <iostream>
+#define EXT 5
 using namespace std;
 
-// Prototipos
-void leerV(int a[], int n);
-void imprimirV(int a[], int n);
-void elementosDiferentes(int a[], int n);
+// PROTOTIPOS
+void leerV(int a[]);
+void printV(int a[]);
+void printAlrevez(int a[]);
+void calSumVec(int a[], int &acum);
 
 int main()
 {
-    int l;
-    bool repet;
-    cout << "Ingrese la cantidad de elementos a ingresar: ";
-    cin >> l;
-    int a[l];
-    leerV(a, l);     // Lectura elementos de vector
-    imprimirV(a, l); // Imprimir vector
-    cout << "Numeros que no se repiten:" << endl;
-    elementosDiferentes(a, l); // Elemento repetido
-    return 0;
-}
+	// DEFINIR VECTOR
+	int v[EXT],
+		// ACUMULADOR DE SUMA
+		acum = 0;
+	// LECTURA VECTOR
+	leerV(v);
+	// IMPRIMIR VECTOR
+	printV(v);
+	// IMPRIMIR ALREVEZ
+	printAlrevez(v);
+	// SUMA ELEMENTOS DE VECTOR
+	calSumVec(v, acum);
 
-void leerV(int a[], int n) // leer vector(array, nelementos)
-{
-    for (int i = 0; i < n; i++)
-    {
-        cout << "Ingrese el elemento " << i + 1 << ": ";
-        cin >> a[i];
-    }
+	cout << "Suma de elementos: " << acum << endl;
+	system("pause");
 }
-void imprimirV(int a[], int n) // imprimir vector(array, nelementos)
+// DEFINICION DE FUNCIONES
+void leerV(int a[])
 {
-    cout << "Vector: [";
-    for (int i = 0; i < n; i++)
-    {
-        cout << a[i];
-        if (i < n - 1)
-        {
-            cout << ",";
-        }
-    }
-    cout << "]" << endl;
+	for (int i = 0; i < EXT; i++)
+	{
+		cout << "Ingrese un valor entero para la posicion [" << i << "]:" << endl;
+		cin >> a[i];
+	}
+	cout << endl;
 }
-void elementosDiferentes(int a[], int n) // buscar elementos diferntes
+void printV(int a[])
 {
-    int aux, cont = 0;
-    for (int i = 0; i < n; i++)
-    {
-        aux = a[i]; // elemento anclado
-        cont = 0;
-        for (int j = 0; j < n; j++)
-        {
-            if (aux == a[j]) // comprobando elemento anclado con todos los elementos
-            {
-                cont++;
-            }
-        }
-        if (cont <= 1)
-        {
-            cout << "Posicion: [" << i << "] - Elemento: " << aux << endl; // posicion y elemento sin repetir
-        }
-    }
+	for (int i = 0; i < EXT; i++)
+	{
+		cout << "Posicion [" << i << "]: " << a[i] << endl;
+	}
+	cout << endl;
+}
+void printAlrevez(int a[])
+{
+	for (int i = EXT - 1; i >= 0; i--)
+	{
+		cout << "Posicion [" << i << "]: " << a[i] << endl;
+	}
+	cout << endl;
+}
+void calSumVec(int a[], int &acum)
+{
+	for (int i = 0; i < EXT; i++)
+	{
+		acum += a[i];
+	}
+	cout << endl;
 }
