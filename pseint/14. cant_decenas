@@ -1,0 +1,13 @@
+Proceso sin_titulo
+	//Se desea leer un número entero de 2 cifras y que se muestre el número de unidades, 
+	//decenas que lo componen.
+	Definir n, d Como Entero;
+	d <- 0;
+	Escribir 'Ingrese n: ';
+	Leer n;
+	Mientras n>=10 Hacer
+		n <- n - 10;
+		d <- d + 1;
+	FinMientras
+	Escribir 'Decenas: ', d;
+FinProceso

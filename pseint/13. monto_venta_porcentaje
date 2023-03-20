@@ -1,0 +1,23 @@
+Proceso sin_titulo
+	//Elabore un algoritmo que permita ingresar el monto de venta alcanzado por un 
+	//vendedor durante el mes, luego de calcular la bonificación que le corresponde 
+	//sabiendo que: 0-1000 0% 1000-5000 3% 5000-20000 5% 20000+ 8%
+	Definir monto Como Real;
+	Escribir 'Ingres monto: ';
+	Leer monto;
+	Si monto>=0 y monto<1000 Entonces
+		Escribir 'Bonificacion: 0%';
+	SiNo
+		Si monto>=1000 y monto<5000 Entonces
+			Escribir 'Bonificacion: 3%';
+		SiNo
+			Si monto>=5000 y monto<20000 Entonces
+				Escribir 'Bonificacion: 5%';
+			SiNo
+				Si monto>=20000 Entonces
+					Escribir 'Bonificacion: 8%';
+				FinSi
+			FinSi
+		FinSi
+	FinSi
+FinProceso

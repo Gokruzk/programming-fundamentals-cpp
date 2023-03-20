@@ -1,0 +1,20 @@
+Proceso sin_titulo
+	//Elaborar un algoritmo para leer 3 números enteros diferentes entre sí, y determinar 
+	//el número mayor de los tres
+	Definir n1, n2, n3, may Como Entero;
+	Escribir 'Ingrese n1: ';
+	Leer n1;
+	Escribir 'Ingrese n1: ';
+	Leer n2;
+	Escribir 'Ingrese n1: ';
+	Leer n3;
+	may <- n1;
+	Si n2 > n1 Entonces
+		may <- n2;
+	SiNo
+		Si n3 > n1 Entonces
+			may <- n3;
+		FinSi
+	FinSi
+	Escribir may;
+FinProceso
